@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "clipboard application",
   "license": "MIT",
-  "keywords": [],
+  "keywords": ["clipboard"],
   "author": {
     "name": "Ricco",
     "email": "1092706357@qq.com"
