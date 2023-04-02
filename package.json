@@ -24,7 +24,7 @@
     "pack:sqlite": "npm --prefix ./src/sqlite run pack"
   },
   "build": {
-    "asar": true,
+    "asar": false,
     "appId": "top.lvcz.www",
     "afterPack": "./afterPackHook.js",
     "directories": {
