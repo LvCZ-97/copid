@@ -1,0 +1,211 @@
+{
+  "name": "copid",
+  "productName": "Copid",
+  "version": "1.0.0",
+  "description": "clipboard application",
+  "license": "MIT",
+  "keywords": [],
+  "author": {
+    "name": "Ricco",
+    "email": "1092706357@qq.com"
+  },
+  "main": "dist/main/main.bundle.js",
+  "scripts": {
+    "lint": "npx eslint --quiet --ext .ts,.tsx,.vue \"src/**\"",
+    "task": "node ./taskflow.js",
+    "test:win32": "esno ./src/win32/test.ts",
+    "test:sqlite": "npm --prefix ./src/sqlite run test",
+    "build:sqlite-client": "npm --prefix ./src/sqlite run build",
+    "dev:main": "webpack --mode development --config ./src/main/build/index.js && npx electron --trace-warnings --inspect=5858 .",
+    "dev:renderer": "webpack --watch --mode development --config ./src/renderer/build",
+    "dev:sqlite": "npm --prefix ./src/sqlite run dev",
+    "pack:main": "cross-env NODE_ENV=production webpack --mode production --config ./src/main/build/index.js",
+    "pack:renderer": "cross-env NODE_ENV=production webpack --mode production --config ./src/renderer/build",
+    "pack:sqlite": "npm --prefix ./src/sqlite run pack"
+  },
+  "build": {
+    "asar": true,
+    "appId": "top.lvcz.www",
+    "afterPack": "./afterPackHook.js",
+    "directories": {
+      "output": "dist",
+      "buildResources": "src/assets"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/logo/icon_nobg.png"
+    },
+    "nsis": {
+      "oneClick": "false",
+      "allowToChangeInstallationDirectory": "true"
+    },
+    "mac": {
+      "target": "dmg",
+      "hardenedRuntime": true,
+      "icon": "src/assets/logo/playstore.png",
+      "entitlements": "entitlements.mac.plist",
+      "entitlementsInherit": "entitlements.mac.plist",
+      "category": "public.app-category.developer-tools"
+    },
+    "dmg": {
+      "sign": false,
+      "icon": "src/assets/logo/icon_nobg.png"
+    },
+    "extraMetadata": {
+      "main": "main/main.bundle.js"
+    },
+    "files": [
+      "!node_modules",
+      "package.json",
+      {
+        "from": "dist/main",
+        "to": "main"
+      },
+      {
+        "from": "dist/renderer",
+        "to": "renderer"
+      },
+      {
+        "from": "dist/sqlite",
+        "to": "sqlite"
+      },
+      {
+        "from": "src/assets",
+        "to": "assets"
+      }
+    ]
+  },
+  "customerBuild": {
+    "win": {
+      "output": "win-unpacked",
+      "appData": "AppData/Local/copid-data"
+    },
+    "mac": {
+      "output": "",
+      "appData": "AppData/copid-data"
+    },
+    "sqlite": {
+      "version": "1.0.0",
+      "binaryTargets": {
+        "win": "windows",
+        "mac": "darwin-arm64"
+      },
+      "dbpath": {
+        "default": "./db",
+        "appData": "sqlite/db"
+      },
+      "dbs": {
+        "main": "main.db"
+      }
+    },
+    "resources": [
+      [
+        "src/sqlite/db",
+        {
+          "dir": "sqlite/db"
+        }
+      ],
+      [
+        "src/sqlite/client",
+        {
+          "dir": "sqlite/client"
+        }
+      ],
+      [
+        "src/hotkey/prebuilds",
+        {
+          "dir": "main/prebuilds"
+        }
+      ]
+    ],
+    "devResources": [
+      "src/assets"
+    ],
+    "deleteResources": [
+      "sqlite/client/query-engine-windows.exe",
+      "sqlite/client/query-engine-darwin"
+    ],
+    "syncResources": [
+      {
+        "from": "../node_modules/@jitsi/robotjs/prebuilds",
+        "to": [
+          "hotkey/prebuilds"
+        ]
+      }
+    ],
+    "winNativeDeps": [
+      "ffi-napi",
+      "ref-napi",
+      "ref-union-di",
+      "ref-struct-di"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.7",
+    "@babel/generator": "^7.20.7",
+    "@babel/parser": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/traverse": "^7.20.10",
+    "@borderless/assign": "^1.1.1",
+    "@jitsi/robotjs": "^0.6.11",
+    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@types/concurrently": "^6.4.0",
+    "@types/eslint": "^8.4.10",
+    "@types/ffi-napi": "^4.0.7",
+    "@types/jsonfile": "^6.1.0",
+    "@types/lodash": "^4.14.191",
+    "@types/mousetrap": "^1.6.11",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "babel-loader": "^9.1.0",
+    "concurrently": "^7.6.0",
+    "core-js": "^3.27.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.3",
+    "electron": "^20.3.8",
+    "electron-builder": "^23.3.3",
+    "electron-squirrel-startup": "^1.0.0",
+    "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-vue": "^9.8.0",
+    "ffi-napi": "^4.0.3",
+    "file-loader": "^6.2.0",
+    "fs-extra": "^11.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "node-loader": "^2.0.0",
+    "postcss": "^8.4.20",
+    "postcss-loader": "^7.0.2",
+    "postcss-nesting": "^10.2.0",
+    "ref-union-di": "^1.0.1",
+    "style-loader": "^3.3.1",
+    "tasksfile": "^5.1.1",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "url-loader": "^4.1.1",
+    "vite": "^4.0.3",
+    "vite-plugin-style-import": "^2.0.0",
+    "vue-eslint-parser": "^9.1.0",
+    "vue-loader": "^17.0.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "@better-scroll/core": "^2.5.0",
+    "@better-scroll/mouse-wheel": "^2.5.0",
+    "@element-plus/icons-vue": "^2.0.10",
+    "@prisma/client": "^4.8.0",
+    "element-plus": "^2.2.27",
+    "jsonfile": "^6.1.0",
+    "lodash": "^4.17.21",
+    "log4js": "^6.7.1",
+    "mousetrap": "^1.6.5",
+    "vue": "^3.2.45",
+    "vuex": "^4.1.0"
+  }
+}

@@ -1,0 +1,24 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# IDE
+.idea
+
+# Build
+/build
+/bin
+/out
+/.webpack
+**/dist
+**/.parcel-cache
+**/logFile
+**/pkg
+src/bin
+src/renderer/**/target
+src/renderer/**/.vitepress/dist
+
+# Sqlite
+/src/sqlite/client
+/src/sqlite/schema.prisma
+/src/sqlite/db/*.db-journal

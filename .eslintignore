@@ -1,0 +1,17 @@
+src/shims
+src/assets
+
+src/sqlite/client
+src/sqlite/db
+src/sqlite/*.prisma
+
+src/**/*.js
+src/**/*.md
+src/**/*.css
+src/**/*.node
+src/**/*.html
+src/**/*.json
+
+doc
+template
+dist/**

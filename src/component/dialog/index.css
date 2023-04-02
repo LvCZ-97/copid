@@ -1,0 +1,18 @@
+.lv-dialog {
+    &.screen-small {
+        & > .inner-wrap {
+            & > .wrapper {
+                & > .el-overlay {
+                    & > .el-overlay-dialog {
+                        & > .el-dialog {
+                            & > .el-dialog__body {
+                                min-height: 100px;
+                                padding: 10px 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

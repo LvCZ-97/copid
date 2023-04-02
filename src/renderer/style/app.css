@@ -1,0 +1,53 @@
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.copid-window {
+    & > .window-wrap {
+        padding: 8px 16px;
+        box-sizing: border-box;
+
+        & > .top-wrap {
+            align-items: center;
+
+            & > .el-dropdown {
+                margin-left: 5px;
+            }
+        }
+
+        & > .clipboard-list-wrap {
+            margin-top: 8px;
+            overflow: hidden;
+            cursor: default;
+
+            & > .scroll-wrap {
+                & > .clipboard-item {
+                    margin-bottom: 8px;
+                    padding: 6px;
+                    border: 1px solid #9acdff;
+                    box-sizing: border-box;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &.clipboard-item-selected {
+                        color: white;
+                        background-color: #9acdff;
+                        box-shadow: 0 0 4px 2px #ebebeb;
+                    }
+
+                    & > .inner-content {
+                        max-height: 48px;
+                        font-size: 12px;
+                        line-height: 16px;
+                        white-space: pre-wrap;
+                        word-break: break-all;
+                        overflow: hidden;
+                    }
+                }
+            }
+        }
+    }
+}

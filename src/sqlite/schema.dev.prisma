@@ -1,0 +1,36 @@
+// ...
+// Version ${version}
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// 更新该配置后，需要重新构建
+
+// 如果是开发模式，需要重启项目
+
+// 模板变量替换
+// #{..} 自定义模板，需要在 ./taskflow.js 里面手动替换值
+// ${..} 自动替换模板，直接读取 package.json / customerBuild.sqlite 字段值替换
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:#{dbpath}/${dbs.main}"
+}
+
+generator client {
+  output    = "./client"
+  provider  = "prisma-client-js"
+  binaryTargets = ["#{binaryTargets}"]
+}
+
+// Renderer 配置
+model RendererConfig {
+  id      Int    @id @default(autoincrement())
+  project String @unique
+  config  String
+}
+
+// 剪贴板
+model Clipboard {
+  id      Int    @id @default(autoincrement())
+  content String @unique
+}

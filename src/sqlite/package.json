@@ -1,0 +1,13 @@
+{
+    "name": "sqlite",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "node ./taskflow.js build",
+        "dev": "node ./taskflow.js dev",
+        "pack": "node ./taskflow.js pack",
+        "test": "node ./taskflow.js test"
+    },
+    "prisma": {
+        "schema": "./schema.prisma"
+    }
+}
